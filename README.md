@@ -9,6 +9,15 @@ The goal is pretty straightforward: figure out if a device is working fine or if
 
 The script trains on the `TRAIN.csv` file, runs the model against `TEST.csv`, and dumps the final predictions into a new `FINAL.csv` file exactly how it's required.
 
+## Model & Implementation Details
+- **Algorithm**: Random Forest Classifier (`sklearn.ensemble.RandomForestClassifier`)
+- **Hyperparameters**: 
+  - `n_estimators=100`: Uses 100 decision trees in the forest to ensure stable predictions while avoiding excessive computation.
+  - `random_state=0`: Ensures the splits are reproducible each time the model is trained.
+  - `n_jobs=-1`: Utilizes all available CPU cores to speed up the training phase.
+- **Why Random Forest?**: Random Forests are highly robust against overfitting and require minimal data preprocessing (like scaling or normalization). They naturally handle high-dimensional spaces (like our 47 features) and are excellent right out of the box for tabular sensor data.
+- **Source Code Data Handling**: The prediction script uses Pandas (`pd.read_csv`) to load the datasets and strictly separates the feature columns from the `ID` and `Class` columns dynamically. 
+
 ## Setup
 Install the requirements:
 ```bash
